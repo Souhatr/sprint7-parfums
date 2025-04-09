@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 @Entity
 public class Parfum {
 	@Id
@@ -12,8 +13,16 @@ public class Parfum {
 	private String nomParfum;
 	private Double prixParfum;
 	private Date dateCreation;
+	@ManyToOne
+	private Marque marque;
 	public Parfum() {
 		super();
+	}
+	public Marque getMarque() {
+		return marque;
+	}
+	public void setMarque(Marque marque) {
+		this.marque = marque;
 	}
 	public Parfum(String nomParfum, Double prixParfum, Date dateCreation) {
 		super();
