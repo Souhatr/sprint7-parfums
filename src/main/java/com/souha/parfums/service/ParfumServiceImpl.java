@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.souha.parfums.entities.Marque;
 import com.souha.parfums.entities.Parfum;
+import com.souha.parfums.repos.MarqueRepository;
 import com.souha.parfums.repos.ParfumRepository;
 @Service
 public class ParfumServiceImpl implements ParfumService {
@@ -73,5 +74,12 @@ public class ParfumServiceImpl implements ParfumService {
 	public List<Parfum> trierParfumsNomsPrix() {
 		
 		return parfumRepository.trierParfumsNomsPrix();
+	}
+	@Autowired
+	MarqueRepository marqueRepository;
+	@Override
+	public List<Marque> getAllMarques()
+	{
+		return marqueRepository.findAll();
 	}
 }

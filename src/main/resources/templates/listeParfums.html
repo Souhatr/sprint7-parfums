@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity6>
 <head>
     <meta charset="utf-8">
     <title>Liste des Parfums</title>
@@ -20,6 +21,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                             <th>ID</th>
                             <th>Nom Parfum</th>
                             <th>Prix</th>
+							<th>Date</th>
+							<th>Marque</th>
+							<th>Editer</th>
 							<th>Supprimer</th>
                         </tr>
                     </thead>
@@ -29,7 +33,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                             <td th:text="${p.idParfum}"></td>
                             <td th:text="${p.nomParfum}"></td>
                             <td th:text="${p.prixParfum}"></td>
-							<td><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerParfum(id=${p.idParfum}, 
+							<td th:text="${p.dateCreation}"></td>
+							<td th:if= "${!#strings.isEmpty(p.marque)}" th:text="${p.marque.nomMarque}"></td> 
+							<td th:if= "${#strings.isEmpty(p.marque)}" th:text="${'Pas de marque'}"></td>
+							<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-success"
+							th:href="@{modifierParfum(id=${p.idParfum},page=${currentPage},size=${size})}">Editer</a></td>
+							<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerParfum(id=${p.idParfum}, 
 							page=${currentPage},size=${size})}">Supprimer</a></td>
                         </tr>
                     </tbody>

@@ -24,36 +24,4 @@ public class Marque {
 	@JsonIgnore
 	@OneToMany(mappedBy = "marque")
 	private List<Parfum> parfums;
-	public Marque(Long idMarque, String nomMarque, String descriptionMarque) {
-		super();
-		this.idMarque = idMarque;
-		this.nomMarque = nomMarque;
-		this.descriptionMarque = descriptionMarque;
-	}
-	public Long getIdMarque() {
-		return idMarque;
-	}
-	public void setIdMarque(Long idMarque) {
-		this.idMarque = idMarque;
-	}
-	public String getNomMarque() {
-		return nomMarque;
-	}
-	public void setNomMarque(String nomMarque) {
-		this.nomMarque = nomMarque;
-	}
-	public String getDescriptionMarque() {
-		return descriptionMarque;
-	}
-	public void setDescriptionMarque(String descriptionMarque) {
-		this.descriptionMarque = descriptionMarque;
-	}
-	public List<Parfum> getParfums() {
-		return parfums;
-	}
-	public void setParfums(List<Parfum> parfums) {
-		this.parfums = parfums;
-	}
-	
-
 }
