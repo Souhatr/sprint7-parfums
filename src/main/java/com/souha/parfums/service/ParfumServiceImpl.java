@@ -1,10 +1,15 @@
 package com.souha.parfums.service;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.souha.parfums.dto.ParfumDTO;
 import com.souha.parfums.entities.Marque;
 import com.souha.parfums.entities.Parfum;
 import com.souha.parfums.repos.MarqueRepository;
@@ -13,13 +18,15 @@ import com.souha.parfums.repos.ParfumRepository;
 public class ParfumServiceImpl implements ParfumService {
 	@Autowired
 	ParfumRepository parfumRepository;
+	@Autowired
+	ModelMapper modelMapper;
 	@Override
-	public Parfum saveParfum(Parfum p) {
-		return parfumRepository.save(p);
+	public ParfumDTO saveParfum(ParfumDTO p) {
+		return convertEntityToDto( parfumRepository.save(convertDtoToEntity(p)));
 	}
 	@Override
-	public Parfum updateParfum(Parfum p) {
-		return parfumRepository.save(p);
+	public ParfumDTO updateParfum(ParfumDTO p) {
+		return convertEntityToDto( parfumRepository.save(convertDtoToEntity(p)));
 	}
 	@Override
 	public void deleteParfum(Parfum p) {
@@ -30,12 +37,14 @@ public class ParfumServiceImpl implements ParfumService {
 		parfumRepository.deleteById(id);
 	}
 	@Override
-	public Parfum getParfum(Long id) {
-		return parfumRepository.findById(id).get();
+	public ParfumDTO getParfum(Long id) {
+		return convertEntityToDto(parfumRepository.findById(id).get());
 	}
 	@Override
-	public List<Parfum> getAllParfums() {
-		return parfumRepository.findAll();
+	public List<ParfumDTO> getAllParfums() {
+		return parfumRepository.findAll().stream()
+				.map(this::convertEntityToDto)
+				.collect(Collectors.toList());
 	}
 	@Override
 	public Page<Parfum> getAllParfumsParPage(int page, int size) {
@@ -82,4 +91,33 @@ public class ParfumServiceImpl implements ParfumService {
 	{
 		return marqueRepository.findAll();
 	}
+	@Override
+	public ParfumDTO convertEntityToDto(Parfum parfum) {
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+		ParfumDTO parfumDTO=modelMapper.map(parfum,ParfumDTO.class);
+		return parfumDTO;
+		/*ParfumDTO parfumDTO = new ParfumDTO();
+		parfumDTO.setIdParfum(parfum.getIdParfum());
+		parfumDTO.setNomParfum(parfum.getNomParfum());
+		parfumDTO.setPrixParfum(parfum.getPrixParfum());
+		parfumDTO.setDateCreation(parfum.getDateCreation());
+		//parfumDTO.setNomMarque(parfum.getMarque().getNomMarque());
+		parfumDTO.setMarque(parfum.getMarque()); 
+		return parfumDTO;*/
+		 
+		
+	}
+	@Override
+	public Parfum convertDtoToEntity(ParfumDTO parfumDTO) {
+		Parfum parfum= new Parfum();
+		parfum = modelMapper.map(parfumDTO, Parfum.class);
+		return parfum;
+		/*parfum.setIdParfum(parfumDTO.getIdParfum());
+		parfum.setNomParfum(parfumDTO.getNomParfum());
+		parfum.setPrixParfum(parfumDTO.getPrixParfum());
+		parfum.setDateCreation(parfumDTO.getDateCreation());
+		//parfumDTO.setNomMarque(parfum.getMarque().getNomMarque());
+		parfum.setMarque(parfumDTO.getMarque()); 
+		return parfum; */
+	} 
 }

@@ -15,8 +15,8 @@ type="text/css"href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
 	<div class="card-header" th:if="${mode=='edit'}">Modification des Parfums </div>
 <div class="card-body">
 <form th:action="@{saveParfum}" method="post">
-	<input name="page" class="form-control" th:value="${page}" />
-	<input name="size" class="form-control" th:value="${size}" />
+	<input type="hidden"name="page" class="form-control" th:value="${page}" />
+	<input type="hidden" name="size" class="form-control" th:value="${size}" />
 	<div class="form-group">
 	<label class="control-label" hidden>ID Parfum:</label>
 	<input type="hidden" name="idParfum" class="form-control"

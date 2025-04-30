@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.souha.parfums.dto.ParfumDTO;
 import com.souha.parfums.entities.Parfum;
 import com.souha.parfums.service.ParfumService;
 
@@ -18,20 +20,20 @@ public class ParfumRESTController {
 	@Autowired
 	ParfumService parfumService;
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Parfum> getAllParfums() {
+	public List<ParfumDTO> getAllParfums() {
 	return parfumService.getAllParfums();
 	}
 	@RequestMapping(value="/{id}",method = RequestMethod.GET)
-	public Parfum getParfumById(@PathVariable("id") Long id) {
+	public ParfumDTO getParfumById(@PathVariable("id") Long id) {
 	return parfumService.getParfum(id);
 	}
 	@RequestMapping(method = RequestMethod.POST)
-	public Parfum createParfum(@RequestBody Parfum parfum) {
-	return parfumService.saveParfum(parfum);
+	public ParfumDTO createParfum(@RequestBody ParfumDTO parfumDTO) {
+	return parfumService.saveParfum(parfumDTO);
 	}
 	@RequestMapping(method = RequestMethod.PUT)
-	public Parfum updateParfum(@RequestBody Parfum parfum) {
-	return parfumService.updateParfum(parfum);
+	public ParfumDTO updateParfum(@RequestBody ParfumDTO parfumDTO) {
+	return parfumService.updateParfum(parfumDTO);
 	}
 	@RequestMapping(value="/{id}",method = RequestMethod.DELETE)
 	public void deleteProduit(@PathVariable("id") Long id)
