@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.souha.parfums.dto.ParfumDTO;
 import com.souha.parfums.entities.Marque;
 import com.souha.parfums.entities.Parfum;
 import com.souha.parfums.service.ParfumService;
@@ -47,7 +46,7 @@ public class ParfumController {
 	}
 
 	@RequestMapping("/saveParfum")
-	public String saveParfum(@Valid ParfumDTO parfum, BindingResult bindingResult,
+	public String saveParfum(@Valid Parfum parfum, BindingResult bindingResult,
 			@RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "2") int size) {
 		int currentPage;

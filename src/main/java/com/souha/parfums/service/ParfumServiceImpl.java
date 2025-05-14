@@ -1,5 +1,6 @@
 package com.souha.parfums.service;
 import java.util.List;
+
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -9,7 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.souha.parfums.dto.ParfumDTO;
+
 import com.souha.parfums.entities.Marque;
 import com.souha.parfums.entities.Parfum;
 import com.souha.parfums.repos.MarqueRepository;
@@ -21,12 +22,12 @@ public class ParfumServiceImpl implements ParfumService {
 	@Autowired
 	ModelMapper modelMapper;
 	@Override
-	public ParfumDTO saveParfum(ParfumDTO p) {
-		return convertEntityToDto( parfumRepository.save(convertDtoToEntity(p)));
+	public Parfum saveParfum(Parfum p) {
+		return parfumRepository.save(p);
 	}
 	@Override
-	public ParfumDTO updateParfum(ParfumDTO p) {
-		return convertEntityToDto( parfumRepository.save(convertDtoToEntity(p)));
+	public Parfum updateParfum(Parfum p) {
+		return parfumRepository.save(p);
 	}
 	@Override
 	public void deleteParfum(Parfum p) {
@@ -37,14 +38,12 @@ public class ParfumServiceImpl implements ParfumService {
 		parfumRepository.deleteById(id);
 	}
 	@Override
-	public ParfumDTO getParfum(Long id) {
-		return convertEntityToDto(parfumRepository.findById(id).get());
+	public Parfum getParfum(Long id) {
+		return parfumRepository.findById(id).get();
 	}
 	@Override
-	public List<ParfumDTO> getAllParfums() {
-		return parfumRepository.findAll().stream()
-				.map(this::convertEntityToDto)
-				.collect(Collectors.toList());
+	public List<Parfum> getAllParfums() {
+		return parfumRepository.findAll();
 	}
 	@Override
 	public Page<Parfum> getAllParfumsParPage(int page, int size) {
@@ -91,7 +90,7 @@ public class ParfumServiceImpl implements ParfumService {
 	{
 		return marqueRepository.findAll();
 	}
-	@Override
+	/*@Override
 	public ParfumDTO convertEntityToDto(Parfum parfum) {
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
 		ParfumDTO parfumDTO=modelMapper.map(parfum,ParfumDTO.class);
@@ -103,7 +102,7 @@ public class ParfumServiceImpl implements ParfumService {
 		parfumDTO.setDateCreation(parfum.getDateCreation());
 		//parfumDTO.setNomMarque(parfum.getMarque().getNomMarque());
 		parfumDTO.setMarque(parfum.getMarque()); 
-		return parfumDTO;*/
+		return parfumDTO;
 		 
 		
 	}
@@ -118,6 +117,6 @@ public class ParfumServiceImpl implements ParfumService {
 		parfum.setDateCreation(parfumDTO.getDateCreation());
 		//parfumDTO.setNomMarque(parfum.getMarque().getNomMarque());
 		parfum.setMarque(parfumDTO.getMarque()); 
-		return parfum; */
-	} 
+		return parfum; 
+	} */
 }

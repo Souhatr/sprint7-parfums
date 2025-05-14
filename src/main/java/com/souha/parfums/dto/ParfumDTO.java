@@ -1,6 +1,6 @@
 package com.souha.parfums.dto;
 
-import java.util.Date;
+/*import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -31,3 +31,4 @@ public class ParfumDTO {
 	private String nomMarque;
 
 }
+*/

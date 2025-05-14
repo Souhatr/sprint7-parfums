@@ -28,7 +28,9 @@ xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity6>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Affichage dynamique des produits -->
+                        <!-- Affichage dynamique des produits 
+							sec:authorize="hasAuthority('ADMIN')"-->
+							<!--sec:authorize="hasAuthority('ADMIN')"-->
                         <tr th:each="p : ${parfums.content}">
                             <td th:text="${p.idParfum}"></td>
                             <td th:text="${p.nomParfum}"></td>
@@ -36,9 +38,9 @@ xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity6>
 							<td th:text="${p.dateCreation}"></td>
 							<td th:if= "${!#strings.isEmpty(p.marque)}" th:text="${p.marque.nomMarque}"></td> 
 							<td th:if= "${#strings.isEmpty(p.marque)}" th:text="${'Pas de marque'}"></td>
-							<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-success"
+							<td><a class="btn btn-success"
 							th:href="@{modifierParfum(id=${p.idParfum},page=${currentPage},size=${size})}">Editer</a></td>
-							<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerParfum(id=${p.idParfum}, 
+							<td ><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerParfum(id=${p.idParfum}, 
 							page=${currentPage},size=${size})}">Supprimer</a></td>
                         </tr>
                     </tbody>
