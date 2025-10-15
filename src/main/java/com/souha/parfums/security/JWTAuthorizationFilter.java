@@ -1,6 +1,6 @@
 package com.souha.parfums.security;
 
-import java.io.IOException;
+/*import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -39,4 +39,4 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 		SecurityContextHolder.getContext().setAuthentication(user);
 		filterChain.doFilter(request, response);
 	}
-}
+}*/

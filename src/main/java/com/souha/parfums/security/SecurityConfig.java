@@ -2,10 +2,11 @@ package com.souha.parfums.security;
 
 import java.util.Collections;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -20,6 +21,8 @@ import jakarta.servlet.http.HttpServletRequest;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	@Autowired
+	KeycloakRoleConverter keycloakRoleConverter;
 	@Bean
 	public SecurityFilterChain filterChain (HttpSecurity http) throws Exception
 	{ http.sessionManagement( session -> 
@@ -46,7 +49,9 @@ public class SecurityConfig {
 	.requestMatchers(HttpMethod.POST,"/api/addparf/**").hasAnyAuthority("ADMIN")
 	.requestMatchers(HttpMethod.PUT,"/api/updateparf/**").hasAuthority("ADMIN")
 	.anyRequest().authenticated() )
-	.addFilterBefore(new JWTAuthorizationFilter(),UsernamePasswordAuthenticationFilter.class);
+	//.oauth2ResourceServer(rs -> rs.jwt(Customizer.withDefaults()));
+	 .oauth2ResourceServer(ors->ors.jwt(jwt->
+	 jwt.jwtAuthenticationConverter(keycloakRoleConverter)));
 	return http.build();
 	}
 
