@@ -111,9 +111,5 @@ public class ParfumController {
 	public String welcome() {
 		return "index";
 	}
-	@GetMapping("/auth")
-	Authentication getAuth(Authentication auth)
-	{
-	return auth;
-	}
+	
 }
